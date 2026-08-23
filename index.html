@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snip & Style — Book your look. Your way. Anytime.</title>
+<meta name="description" content="Snip & Style is a South African marketplace for discovering and booking beauty, grooming, and wellness services — barbers, salons, nails, spas, makeup and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Colour */
+    --primary:#003B73;
+    --primary-action:#006CE4;
+    --primary-action-dark:#0057b8;
+    --accent:#F5B700;
+    --bg:#FFFFFF;
+    --bg-soft:#F7F8FA;
+    --text-primary:#1A1A1A;
+    --text-secondary:#667085;
+    --border:#E4E7EC;
+    --success:#0F9D58;
+
+    /* Spacing scale */
+    --space-1:4px;
+    --space-2:8px;
+    --space-3:12px;
+    --space-4:16px;
+    --space-5:24px;
+    --space-6:32px;
+    --space-7:48px;
+    --space-8:64px;
+    --space-9:96px;
+
+    /* Radius */
+    --radius-sm:6px;
+    --radius-md:10px;
+    --radius-lg:16px;
+    --radius-full:999px;
+
+    /* Shadow */
+    --shadow-sm:0 1px 2px rgba(16,24,40,0.06);
+    --shadow-md:0 4px 12px rgba(16,24,40,0.08);
+    --shadow-lg:0 12px 32px rgba(16,24,40,0.12);
+
+    /* Type */
+    --font:'Inter',system-ui,-apple-system,sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font);
+    color:var(--text-primary);
+    background:var(--bg);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;}
+  a{color:inherit;}
+  ul{list-style:none;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+  section{position:relative;}
+
+  :focus-visible{
+    outline:2px solid var(--primary-action);
+    outline-offset:2px;
+    border-radius:4px;
+  }
+
+  h1,h2,h3,h4{
+    font-weight:700;
+    letter-spacing:-0.01em;
+    color:var(--text-primary);
+  }
+
+  .eyebrow{
+    font-size:0.78rem;
+    font-weight:600;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--primary-action);
+    display:block;
+    margin-bottom:var(--space-2);
+  }
+
+  .section-head{
+    max-width:640px;
+    margin-bottom:var(--space-7);
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem,3vw,2.2rem);
+    margin-bottom:var(--space-2);
+  }
+  .section-head p{
+    color:var(--text-secondary);
+    font-size:1.02rem;
+  }
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-weight:600;font-size:0.95rem;
+    padding:12px 22px;border-radius:var(--radius-md);
+    border:1px solid transparent;
+    transition:background 0.15s ease, border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-primary{background:var(--primary-action);color:#fff;}
+  .btn-primary:hover{background:var(--primary-action-dark);box-shadow:var(--shadow-md);}
+  .btn-ghost{background:transparent;color:var(--primary);border-color:var(--border);}
+  .btn-ghost:hover{border-color:var(--primary-action);color:var(--primary-action);}
+  .btn-dark{background:var(--primary);color:#fff;}
+  .btn-dark:hover{background:#00294f;}
+  .btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,0.4);}
+  .btn-outline-light:hover{border-color:#fff;}
+  .btn-sm{padding:9px 16px;font-size:0.85rem;}
+  .btn-block{width:100%;}
+
+  /* ================= NAV ================= */
+  .navbar{
+    position:sticky;top:0;z-index:200;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid transparent;
+    transition:border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .navbar.scrolled{border-color:var(--border);box-shadow:0 1px 0 rgba(16,24,40,0.02);}
+  .nav-inner{
+    max-width:1200px;margin:0 auto;padding:16px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .logo{
+    display:flex;flex-direction:column;line-height:1.1;
+  }
+  .logo .mark{font-size:1.2rem;font-weight:800;letter-spacing:0.01em;color:var(--primary);}
+  .logo .desc{font-size:0.68rem;color:var(--text-secondary);font-weight:500;letter-spacing:0.02em;}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{
+    font-size:0.92rem;font-weight:500;color:var(--text-primary);
+    position:relative;padding:4px 0;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-2px;width:0;height:2px;
+    background:var(--primary-action);transition:width 0.2s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-right{display:flex;align-items:center;gap:14px;}
+  .nav-right .signin{font-size:0.9rem;font-weight:500;color:var(--text-primary);}
+  .nav-toggle{display:none;background:none;border:none;padding:6px;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--text-primary);margin:5px 0;transition:0.2s;}
+
+  /* ================= HERO ================= */
+  .hero{
+    background:linear-gradient(180deg,#00294f 0%, var(--primary) 60%, #024079 100%);
+    color:#fff;
+    padding:64px 0 0;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:center;
+    padding-bottom:56px;
+  }
+  .hero h1{
+    color:#fff;font-size:clamp(2.2rem,4.4vw,3.1rem);line-height:1.1;
+    margin-bottom:var(--space-4);
+  }
+  .hero .lede{
+    color:rgba(255,255,255,0.82);font-size:1.08rem;max-width:46ch;margin-bottom:var(--space-6);
+  }
+  .hero-stats{display:flex;gap:28px;margin-bottom:0;flex-wrap:wrap;}
+  .hero-stats div{font-size:0.85rem;color:rgba(255,255,255,0.7);}
+  .hero-stats strong{display:block;color:#fff;font-size:1.15rem;font-weight:700;}
+
+  .hero-visual{
+    position:relative;border-radius:var(--radius-lg);overflow:hidden;
+    aspect-ratio:4/3.1;box-shadow:var(--shadow-lg);
+  }
+  .hero-visual img{width:100%;height:100%;object-fit:cover;}
+  .hero-visual .caption{
+    position:absolute;left:18px;bottom:18px;
+    background:rgba(10,20,35,0.55);backdrop-filter:blur(6px);
+    color:#fff;padding:10px 14px;border-radius:var(--radius-md);
+    font-size:0.82rem;font-weight:500;display:flex;align-items:center;gap:8px;
+  }
+  .hero-visual .caption .dot{width:8px;height:8px;border-radius:50%;background:#3ee06f;flex:none;}
+
+  /* Search module */
+  .search-module{
+    background:#fff;border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+    padding:10px;
+    display:grid;grid-template-columns:1.1fr 1.1fr 0.9fr auto;
+    gap:2px;
+    transform:translateY(28px);
+    position:relative;z-index:5;
+  }
+  .search-field{
+    padding:10px 16px;border-radius:var(--radius-md);
+    display:flex;flex-direction:column;gap:2px;
+    transition:background 0.15s ease;
+  }
+  .search-field:hover{background:var(--bg-soft);}
+  .search-field label{font-size:0.7rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em;}
+  .search-field input, .search-field select{
+    border:none;outline:none;font-family:inherit;font-size:0.95rem;font-weight:500;
+    color:var(--text-primary);background:transparent;width:100%;
+  }
+  .search-field select{cursor:pointer;appearance:none;-webkit-appearance:none;}
+  .search-divider{width:1px;background:var(--border);margin:8px 0;align-self:stretch;}
+  .search-submit{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--primary-action);color:#fff;font-weight:600;font-size:0.95rem;
+    border-radius:var(--radius-md);padding:0 26px;border:none;white-space:nowrap;
+    transition:background 0.15s ease;
+  }
+  .search-submit:hover{background:var(--primary-action-dark);}
+  .hero-space{height:56px;}
+
+  /* ================= CATEGORIES ================= */
+  .categories{padding:var(--space-9) 0 var(--space-8);background:var(--bg);}
+  .category-grid{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:16px;
+  }
+  .category-card{
+    position:relative;border-radius:var(--radius-lg);overflow:hidden;
+    aspect-ratio:3/3.6;cursor:pointer;border:none;padding:0;text-align:left;
+    background:var(--primary);
+  }
+  .category-card:nth-child(2){grid-row:span 1;}
+  .category-card img{
+    width:100%;height:100%;object-fit:cover;position:absolute;inset:0;
+    transition:transform 0.35s ease;
+  }
+  .category-card:hover img{transform:scale(1.04);}
+  .category-card .scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,20,40,0) 35%, rgba(0,15,30,0.82) 100%);
+  }
+  .category-card .label{
+    position:absolute;left:14px;right:14px;bottom:14px;color:#fff;
+  }
+  .category-card .label h3{color:#fff;font-size:1.02rem;margin-bottom:3px;}
+  .category-card .label p{color:rgba(255,255,255,0.78);font-size:0.76rem;}
+
+  /* ================= LISTINGS ================= */
+  .listings{padding:var(--space-8) 0;background:var(--bg-soft);}
+  .listings-head{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:var(--space-6);flex-wrap:wrap;
+  }
+  .filter-chips{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{
+    padding:8px 16px;border-radius:var(--radius-full);border:1px solid var(--border);
+    background:#fff;font-size:0.85rem;font-weight:500;color:var(--text-secondary);
+    transition:all 0.15s ease;
+  }
+  .chip:hover{border-color:var(--primary-action);color:var(--primary-action);}
+  .chip.active{background:var(--primary);border-color:var(--primary);color:#fff;}
+
+  .result-meta{
+    font-size:0.88rem;color:var(--text-secondary);margin-bottom:var(--space-5);
+  }
+  .result-meta strong{color:var(--text-primary);}
+
+  .listing-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .listing-card{
+    background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+    overflow:hidden;transition:box-shadow 0.18s ease, transform 0.18s ease;
+    display:flex;flex-direction:column;
+  }
+  .listing-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+  .listing-media{position:relative;aspect-ratio:4/3;background:var(--bg-soft);}
+  .listing-media img{width:100%;height:100%;object-fit:cover;}
+  .listing-badge{
+    position:absolute;top:12px;left:12px;
+    background:var(--accent);color:#332600;font-size:0.68rem;font-weight:700;
+    padding:5px 10px;border-radius:var(--radius-full);letter-spacing:0.02em;
+  }
+  .listing-badge.today{background:#fff;color:var(--success);border:1px solid #cdeed9;}
+  .listing-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1;}
+  .listing-cat{font-size:0.74rem;color:var(--primary-action);font-weight:600;text-transform:uppercase;letter-spacing:0.03em;}
+  .listing-name{font-size:1.08rem;font-weight:700;}
+  .listing-rating{display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--text-secondary);}
+  .listing-rating .stars{color:var(--accent);font-weight:700;display:flex;align-items:center;gap:3px;}
+  .listing-loc{display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--text-secondary);}
+  .listing-service{font-size:0.88rem;color:var(--text-primary);margin-top:2px;}
+  .listing-footer{
+    margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid var(--border);margin-top:14px;
+  }
+  .listing-price{font-size:0.82rem;color:var(--text-secondary);}
+  .listing-price strong{color:var(--text-primary);font-size:1.02rem;}
+
+  .empty-state{
+    grid-column:1/-1;text-align:center;padding:56px 20px;color:var(--text-secondary);
+    border:1px dashed var(--border);border-radius:var(--radius-lg);background:#fff;
+  }
+  .empty-state h3{margin-bottom:6px;color:var(--text-primary);}
+
+  .listings-more{text-align:center;margin-top:var(--space-6);}
+
+  /* ================= HOW IT WORKS ================= */
+  .how{padding:var(--space-8) 0;background:#fff;}
+  .how-row{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .how-step{position:relative;padding-left:52px;}
+  .how-step .n{
+    position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;
+    background:var(--bg-soft);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:0.85rem;color:var(--primary);
+  }
+  .how-step h3{font-size:1.05rem;margin-bottom:4px;}
+  .how-step p{color:var(--text-secondary);font-size:0.92rem;}
+
+  /* ================= CITIES ================= */
+  .cities{padding:var(--space-8) 0;background:var(--bg-soft);}
+  .city-layout{
+    display:grid;grid-template-columns:1.1fr 1fr 1fr;grid-template-rows:auto auto;gap:14px;
+  }
+  .city-card{
+    position:relative;border-radius:var(--radius-lg);overflow:hidden;min-height:150px;
+    background:var(--primary);border:none;padding:0;text-align:left;cursor:pointer;
+  }
+  .city-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.35s ease;}
+  .city-card:hover img{transform:scale(1.05);}
+  .city-card .scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,20,40,0.05), rgba(0,15,30,0.78));}
+  .city-card .info{position:absolute;left:16px;bottom:14px;right:16px;color:#fff;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
+  .city-card .info h3{color:#fff;font-size:1.05rem;}
+  .city-card .info span{font-size:0.78rem;color:rgba(255,255,255,0.85);display:flex;align-items:center;gap:4px;font-weight:500;}
+  .city-card.featured{grid-row:span 2;min-height:100%;}
+  .city-card.featured .info h3{font-size:1.4rem;}
+
+  /* ================= TRUST ================= */
+  .trust{padding:var(--space-9) 0;background:var(--primary);color:#fff;}
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:center;}
+  .trust-copy h2{color:#fff;font-size:clamp(1.7rem,3vw,2.2rem);margin-bottom:var(--space-4);}
+  .trust-copy p{color:rgba(255,255,255,0.78);font-size:1.02rem;max-width:44ch;}
+  .trust-list{display:flex;flex-direction:column;gap:0;}
+  .trust-item{
+    display:flex;gap:16px;padding:20px 0;border-top:1px solid rgba(255,255,255,0.14);
+  }
+  .trust-item:first-child{border-top:none;}
+  .trust-item .ic{
+    flex:none;width:38px;height:38px;border-radius:var(--radius-md);
+    background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;
+  }
+  .trust-item h4{color:#fff;font-size:1rem;margin-bottom:3px;}
+  .trust-item p{color:rgba(255,255,255,0.7);font-size:0.9rem;}
+
+  /* ================= TESTIMONIALS ================= */
+  .testimonials{padding:var(--space-8) 0;background:#fff;}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .testi-card{
+    background:var(--bg-soft);border-radius:var(--radius-lg);padding:26px;
+    display:flex;flex-direction:column;gap:16px;border:1px solid var(--border);
+  }
+  .testi-card .quote{font-size:0.98rem;color:var(--text-primary);line-height:1.6;}
+  .testi-author{display:flex;align-items:center;gap:10px;}
+  .testi-avatar{
+    width:36px;height:36px;border-radius:50%;background:var(--primary);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex:none;
+  }
+  .testi-author .name{font-weight:600;font-size:0.88rem;}
+  .testi-author .loc{font-size:0.78rem;color:var(--text-secondary);}
+
+  /* ================= BUSINESS CTA ================= */
+  .biz-cta{padding:var(--space-9) 0;background:#00152b;color:#fff;}
+  .biz-grid{display:grid;grid-template-columns:1fr 0.85fr;gap:var(--space-8);align-items:center;}
+  .biz-cta h2{color:#fff;font-size:clamp(1.8rem,3.4vw,2.5rem);margin-bottom:var(--space-4);}
+  .biz-cta > .wrap > .biz-grid > div:first-child p{color:rgba(255,255,255,0.72);font-size:1.02rem;max-width:48ch;margin-bottom:var(--space-6);}
+  .biz-benefits{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:var(--space-6);}
+  .biz-benefits li{display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;color:rgba(255,255,255,0.85);}
+  .biz-benefits li .chk{color:var(--accent);flex:none;font-weight:700;}
+  .biz-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .biz-panel{
+    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);
+    border-radius:var(--radius-lg);padding:28px;
+  }
+  .biz-panel .stat-row{display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid rgba(255,255,255,0.12);}
+  .biz-panel .stat-row:first-child{border-top:none;padding-top:0;}
+  .biz-panel .stat-row .l{color:rgba(255,255,255,0.65);font-size:0.88rem;}
+  .biz-panel .stat-row .v{font-weight:700;color:var(--accent);font-size:0.95rem;}
+
+  /* ================= FOOTER ================= */
+  footer{background:#fff;border-top:1px solid var(--border);padding:var(--space-8) 0 var(--space-5);}
+  .footer-top{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:var(--space-7);
+  }
+  .footer-brand .mark{font-size:1.2rem;font-weight:800;color:var(--primary);margin-bottom:8px;}
+  .footer-brand p{color:var(--text-secondary);font-size:0.88rem;max-width:32ch;margin-bottom:16px;}
+  .footer-social{display:flex;gap:10px;}
+  .footer-social a{
+    width:32px;height:32px;border-radius:50%;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;color:var(--text-secondary);
+    transition:all 0.15s ease;
+  }
+  .footer-social a:hover{border-color:var(--primary-action);color:var(--primary-action);}
+  .footer-col h4{font-size:0.85rem;margin-bottom:14px;color:var(--text-primary);}
+  .footer-col ul{display:flex;flex-direction:column;gap:10px;}
+  .footer-col a{font-size:0.87rem;color:var(--text-secondary);}
+  .footer-col a:hover{color:var(--primary-action);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    padding-top:var(--space-5);border-top:1px solid var(--border);
+    font-size:0.82rem;color:var(--text-secondary);
+  }
+  .footer-legal{display:flex;gap:18px;}
+
+  /* ================= MODAL ================= */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(10,20,35,0.55);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.2s ease;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:#fff;border-radius:var(--radius-lg);max-width:440px;width:100%;
+    max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);
+    transform:translateY(16px);transition:transform 0.2s ease;
+  }
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal-header{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    padding:22px 22px 0;
+  }
+  .modal-header h3{font-size:1.1rem;}
+  .modal-header .sub{font-size:0.85rem;color:var(--text-secondary);margin-top:2px;}
+  .modal-close{
+    background:var(--bg-soft);border:none;width:30px;height:30px;border-radius:50%;
+    font-size:1rem;color:var(--text-secondary);flex:none;
+  }
+  .modal-close:hover{background:var(--border);}
+  .modal-body{padding:18px 22px 22px;}
+  .modal-price{
+    display:flex;justify-content:space-between;align-items:center;
+    background:var(--bg-soft);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:18px;
+  }
+  .modal-price .l{font-size:0.85rem;color:var(--text-secondary);}
+  .modal-price .v{font-weight:700;font-size:1.15rem;color:var(--primary);}
+  .modal-section-label{font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:var(--text-secondary);margin-bottom:10px;display:block;}
+  .modal-dates{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;padding-bottom:2px;}
+  .date-pill{
+    flex:none;border:1px solid var(--border);border-radius:var(--radius-md);
+    padding:8px 14px;font-size:0.82rem;font-weight:600;background:#fff;text-align:center;min-width:56px;
+  }
+  .date-pill .d{display:block;font-size:0.68rem;color:var(--text-secondary);font-weight:500;}
+  .date-pill.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+  .date-pill.active .d{color:rgba(255,255,255,0.75);}
+  .modal-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+  .slot-pill{
+    border:1px solid var(--border);border-radius:var(--radius-md);padding:9px 6px;
+    font-size:0.82rem;font-weight:600;background:#fff;text-align:center;
+  }
+  .slot-pill.active{background:var(--primary-action);color:#fff;border-color:var(--primary-action);}
+  .success-state{text-align:center;padding:14px 4px 6px;}
+  .success-icon{
+    width:56px;height:56px;border-radius:50%;background:#e6f6ec;color:var(--success);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.6rem;
+  }
+  .success-state h3{margin-bottom:6px;}
+  .success-state p{color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px;}
+  .booking-summary{
+    text-align:left;background:var(--bg-soft);border-radius:var(--radius-md);padding:14px 16px;margin-bottom:18px;
+  }
+  .booking-summary .row{display:flex;justify-content:space-between;font-size:0.86rem;padding:4px 0;color:var(--text-secondary);}
+  .booking-summary .row span:last-child{color:var(--text-primary);font-weight:600;}
+
+  .form-field{margin-bottom:14px;}
+  .form-field label{display:block;font-size:0.82rem;font-weight:600;color:var(--text-primary);margin-bottom:6px;}
+  .form-field .req{color:#C6432E;}
+  .form-field input, .form-field select, .form-field textarea{
+    width:100%;border:1px solid var(--border);border-radius:var(--radius-md);
+    padding:10px 12px;font-family:inherit;font-size:0.92rem;color:var(--text-primary);
+    background:#fff;transition:border-color 0.15s ease;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+    outline:none;border-color:var(--primary-action);
+  }
+  .form-field textarea{resize:vertical;min-height:64px;}
+  .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .field-error{font-size:0.78rem;color:#C6432E;margin-top:4px;display:none;}
+  .form-field.invalid input, .form-field.invalid select{border-color:#C6432E;}
+  .form-field.invalid .field-error{display:block;}
+
+  /* icon svg baseline */
+  .ic-svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;}
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width:960px){
+    .nav-links{display:none;}
+    .nav-toggle{display:block;}
+    .nav-right .signin{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{order:-1;aspect-ratio:16/10;}
+    .search-module{grid-template-columns:1fr 1fr;transform:translateY(0);margin-top:24px;border-radius:var(--radius-lg);}
+    .search-divider{display:none;}
+    .search-submit{grid-column:1/-1;padding:14px;margin-top:4px;}
+    .hero-space{display:none;}
+    .category-grid{grid-template-columns:repeat(3,1fr);}
+    .listing-grid{grid-template-columns:repeat(2,1fr);}
+    .how-row{grid-template-columns:1fr;gap:26px;}
+    .city-layout{grid-template-columns:1fr 1fr;}
+    .city-card.featured{grid-row:span 1;min-height:150px;}
+    .trust-grid{grid-template-columns:1fr;gap:var(--space-6);}
+    .testi-grid{grid-template-columns:1fr;}
+    .biz-grid{grid-template-columns:1fr;}
+    .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px;}
+    .category-grid{grid-template-columns:repeat(2,1fr);}
+    .listing-grid{grid-template-columns:1fr;}
+    .search-module{grid-template-columns:1fr;}
+    .city-layout{grid-template-columns:1fr;}
+    .listings-head{flex-direction:column;align-items:flex-start;}
+    .footer-top{grid-template-columns:1fr;}
+    .footer-bottom{flex-direction:column;align-items:flex-start;}
+    .biz-benefits{grid-template-columns:1fr;}
+    .hero{padding-top:20px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="logo">
+      <span class="mark">SNIP &amp; STYLE</span>
+      <span class="desc">Beauty &amp; Wellness Booking</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#listings">Explore</a>
+      <a href="#categories">Categories</a>
+      <a href="#business">For Businesses</a>
+      <a href="#how">How It Works</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#" class="signin">Sign in</a>
+      <a href="#" class="btn btn-ghost btn-sm" data-list-business>List your business</a>
+      <a href="#search" class="btn btn-primary btn-sm">Find a service</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1>Find your next beauty appointment.</h1>
+        <p class="lede">Discover trusted barbers, salons, nail technicians, spas, and beauty professionals near you. Compare services, check availability, and book in minutes.</p>
+        <div class="hero-stats">
+          <div><strong>10</strong>professionals listed</div>
+          <div><strong>6</strong>cities covered</div>
+          <div><strong>5</strong>service categories</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=900&q=80&auto=format&fit=crop" alt="A barber trimming a client's beard in a salon" onerror="this.onerror=null;this.src='https://picsum.photos/seed/snipstyle-hero/900/700';">
+        <div class="caption"><span class="dot"></span> Available today · Johannesburg CBD</div>
+      </div>
+    </div>
+
+    <div class="search-module" id="search">
+      <div class="search-field">
+        <label for="locInput">Location</label>
+        <input id="locInput" type="text" placeholder="Where are you looking?" list="locOptions" autocomplete="off">
+        <datalist id="locOptions">
+          <option value="Johannesburg CBD">
+          <option value="Johannesburg">
+          <option value="Sandton">
+          <option value="Soweto">
+          <option value="Pretoria">
+          <option value="Cape Town">
+          <option value="Durban">
+        </datalist>
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field">
+        <label for="svcInput">Service</label>
+        <select id="svcInput">
+          <option value="">What do you need?</option>
+          <option value="barbers">Haircut / Barber</option>
+          <option value="hair">Braids</option>
+          <option value="nails">Nails</option>
+          <option value="spa">Massage</option>
+          <option value="spa">Spa</option>
+          <option value="makeup">Makeup</option>
+          <option value="lashes">Lashes</option>
+          <option value="lashes">Brows</option>
+        </select>
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field">
+        <label for="dateInput">Date</label>
+        <input id="dateInput" type="text" placeholder="Any date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+      </div>
+      <button class="search-submit" id="searchBtn">
+        <svg class="ic-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search
+      </button>
+    </div>
+    <div class="hero-space"></div>
+  </div>
+</section>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="categories" id="categories">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Browse</span>
+      <h2>What are you looking for?</h2>
+      <p>Explore popular beauty, grooming, and wellness services.</p>
+    </div>
+    <div class="category-grid" id="categoryGrid">
+      <button class="category-card" data-cat="barbers">
+        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80&auto=format&fit=crop" alt="Barber giving a client a fresh fade" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cat-barbers/500/600';">
+        <div class="scrim"></div>
+        <div class="label"><h3>Barbers</h3><p>Fresh cuts, fades and grooming</p></div>
+      </button>
+      <button class="category-card" data-cat="hair">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&q=80&auto=format&fit=crop" alt="Stylist working on a client's hair in a salon" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cat-hair/500/600';">
+        <div class="scrim"></div>
+        <div class="label"><h3>Hair &amp; Salons</h3><p>Cuts, colour, braids and styling</p></div>
+      </button>
+      <button class="category-card" data-cat="nails">
+        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500&q=80&auto=format&fit=crop" alt="Nail technician performing a manicure" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cat-nails/500/600';">
+        <div class="scrim"></div>
+        <div class="label"><h3>Nails</h3><p>Manicures, pedicures and nail art</p></div>
+      </button>
+      <button class="category-card" data-cat="spa">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&q=80&auto=format&fit=crop" alt="Relaxing massage treatment at a spa" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cat-spa/500/600';">
+        <div class="scrim"></div>
+        <div class="label"><h3>Spa &amp; Massage</h3><p>Relaxation, recovery and wellness</p></div>
+      </button>
+      <button class="category-card" data-cat="makeup">
+        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&q=80&auto=format&fit=crop" alt="Makeup artist applying makeup to a client" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cat-makeup/500/600';">
+        <div class="scrim"></div>
+        <div class="label"><h3>Makeup</h3><p>Everyday, events and bridal beauty</p></div>
+      </button>
+      <button class="category-card" data-cat="lashes">
+        <img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=500&q=80&auto=format&fit=crop" alt="Close-up lash and brow treatment" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cat-lashes/500/600';">
+        <div class="scrim"></div>
+        <div class="label"><h3>Lashes &amp; Brows</h3><p>Brows, lashes and finishing touches</p></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LISTINGS ============ -->
+<section class="listings" id="listings">
+  <div class="wrap">
+    <div class="listings-head">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow">Marketplace</span>
+        <h2>Popular near you</h2>
+        <p>Highly rated beauty and grooming professionals customers are booking right now.</p>
+      </div>
+      <div class="filter-chips" id="filterChips">
+        <button class="chip active" data-cat="all">All</button>
+        <button class="chip" data-cat="barbers">Barbers</button>
+        <button class="chip" data-cat="hair">Hair &amp; Salons</button>
+        <button class="chip" data-cat="nails">Nails</button>
+        <button class="chip" data-cat="spa">Spa</button>
+        <button class="chip" data-cat="makeup">Makeup</button>
+        <button class="chip" data-cat="lashes">Lashes &amp; Brows</button>
+      </div>
+    </div>
+    <p class="result-meta" id="resultMeta"></p>
+    <div class="listing-grid" id="listingGrid"></div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Process</span>
+      <h2>How it works</h2>
+      <p>Three steps between you and your next appointment.</p>
+    </div>
+    <div class="how-row">
+      <div class="how-step">
+        <span class="n">01</span>
+        <h3>Discover</h3>
+        <p>Search for beauty and wellness services near you.</p>
+      </div>
+      <div class="how-step">
+        <span class="n">02</span>
+        <h3>Compare</h3>
+        <p>Check prices, ratings, services, and availability.</p>
+      </div>
+      <div class="how-step">
+        <span class="n">03</span>
+        <h3>Book</h3>
+        <p>Choose a time that works for you and confirm your appointment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CITIES ============ -->
+<section class="cities" id="cities">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Locations</span>
+      <h2>Beauty and grooming, wherever you are.</h2>
+    </div>
+    <div class="city-layout" id="cityGrid">
+      <button class="city-card featured" data-city="Johannesburg">
+        <img src="https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=700&q=80&auto=format&fit=crop" alt="Johannesburg city view" onerror="this.onerror=null;this.src='https://picsum.photos/seed/city-johannesburg/700/900';">
+        <div class="scrim"></div>
+        <div class="info"><h3>Johannesburg</h3><span>Explore services →</span></div>
+      </button>
+      <button class="city-card" data-city="Sandton">
+        <img src="https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=500&q=80&auto=format&fit=crop" alt="Sandton skyline" onerror="this.onerror=null;this.src='https://picsum.photos/seed/city-sandton/500/450';">
+        <div class="scrim"></div>
+        <div class="info"><h3>Sandton</h3><span>Explore →</span></div>
+      </button>
+      <button class="city-card" data-city="Soweto">
+        <img src="https://images.unsplash.com/photo-1580128637411-64f2dc5fbb52?w=500&q=80&auto=format&fit=crop" alt="Soweto street scene" onerror="this.onerror=null;this.src='https://picsum.photos/seed/city-soweto/500/450';">
+        <div class="scrim"></div>
+        <div class="info"><h3>Soweto</h3><span>Explore →</span></div>
+      </button>
+      <button class="city-card" data-city="Pretoria">
+        <img src="https://images.unsplash.com/photo-1595776613215-fe04b78de7fd?w=500&q=80&auto=format&fit=crop" alt="Pretoria jacaranda-lined street" onerror="this.onerror=null;this.src='https://picsum.photos/seed/city-pretoria/500/450';">
+        <div class="scrim"></div>
+        <div class="info"><h3>Pretoria</h3><span>Explore →</span></div>
+      </button>
+      <button class="city-card" data-city="Cape Town">
+        <img src="https://images.unsplash.com/photo-1580060839134-75a50c8ec74c?w=500&q=80&auto=format&fit=crop" alt="Cape Town with Table Mountain" onerror="this.onerror=null;this.src='https://picsum.photos/seed/city-capetown/500/450';">
+        <div class="scrim"></div>
+        <div class="info"><h3>Cape Town</h3><span>Explore →</span></div>
+      </button>
+      <button class="city-card" data-city="Durban">
+        <img src="https://images.unsplash.com/photo-1621789098261-668de2cd7d75?w=500&q=80&auto=format&fit=crop" alt="Durban coastline" onerror="this.onerror=null;this.src='https://picsum.photos/seed/city-durban/500/450';">
+        <div class="scrim"></div>
+        <div class="info"><h3>Durban</h3><span>Explore →</span></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="trust">
+  <div class="wrap trust-grid">
+    <div class="trust-copy">
+      <span class="eyebrow" style="color:var(--accent);">Trust</span>
+      <h2>Booking made simpler.</h2>
+      <p>Snip &amp; Style takes the back-and-forth out of finding a good barber, salon or spa.</p>
+    </div>
+    <div class="trust-list">
+      <div class="trust-item">
+        <span class="ic">
+          <svg class="ic-svg" style="stroke:#F5B700" viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.7 1.5 6.8L12 17l-6.2 3.5 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+        </span>
+        <div>
+          <h4>Trusted professionals</h4>
+          <p>Discover businesses with ratings, reviews, and real service information.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="ic">
+          <svg class="ic-svg" style="stroke:#F5B700" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </span>
+        <div>
+          <h4>Clear pricing</h4>
+          <p>Know what you're booking before you book.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="ic">
+          <svg class="ic-svg" style="stroke:#F5B700" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </span>
+        <div>
+          <h4>Book when it suits you</h4>
+          <p>Find availability without calling multiple businesses.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="ic">
+          <svg class="ic-svg" style="stroke:#F5B700" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C.6 8 2.3 4 6 4c2 0 3.5 1 4 2.3C10.5 5 12 4 14 4c3.7 0 5.4 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg>
+        </span>
+        <div>
+          <h4>Built for South Africa</h4>
+          <p>Discover local beauty, grooming, and wellness professionals in one place.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">Reviews</span>
+      <h2>Loved by people who like looking good.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="quote">"I found a barber close to work and booked my appointment in a few minutes. Super easy."</p>
+        <div class="testi-author">
+          <span class="testi-avatar">TM</span>
+          <div><div class="name">Thabo M.</div><div class="loc">Johannesburg</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="quote">"I usually spend ages messaging salons to check availability. This makes the process so much easier."</p>
+        <div class="testi-author">
+          <span class="testi-avatar">LK</span>
+          <div><div class="name">Lindiwe K.</div><div class="loc">Sandton</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <p class="quote">"I booked my birthday spa appointment without having to phone anyone. Exactly what I needed."</p>
+        <div class="testi-author">
+          <span class="testi-avatar">SN</span>
+          <div><div class="name">Sipho N.</div><div class="loc">Cape Town</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSINESS CTA ============ -->
+<section class="biz-cta" id="business">
+  <div class="wrap biz-grid">
+    <div>
+      <span class="eyebrow" style="color:var(--accent);">For businesses</span>
+      <h2>Get discovered. Get booked.</h2>
+      <p>Put your business in front of customers looking for beauty and grooming services in your area.</p>
+      <ul class="biz-benefits">
+        <li><span class="chk">✓</span>Create your business profile</li>
+        <li><span class="chk">✓</span>Showcase your services</li>
+        <li><span class="chk">✓</span>Manage bookings</li>
+        <li><span class="chk">✓</span>Reach more local customers</li>
+      </ul>
+      <div class="biz-actions">
+        <a href="#" class="btn" style="background:var(--accent);color:#332600;" data-list-business>List your business</a>
+        <a href="#how" class="btn btn-outline-light">Learn how it works</a>
+      </div>
+    </div>
+    <div class="biz-panel">
+      <div class="stat-row"><span class="l">Categories covered</span><span class="v">6</span></div>
+      <div class="stat-row"><span class="l">Cities live</span><span class="v">6</span></div>
+      <div class="stat-row"><span class="l">Avg. rating on platform</span><span class="v">4.8 ★</span></div>
+      <div class="stat-row"><span class="l">Setup time</span><span class="v">~10 min</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="mark">SNIP &amp; STYLE</div>
+        <p>Book your look. Your way. Anytime. A South African marketplace for beauty, grooming, and wellness bookings.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg class="ic-svg" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg class="ic-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M15 8h2V4h-2a5 5 0 00-5 5v3H8v4h2v7h4v-7h3l1-4h-4V9a1 1 0 011-1z"/></svg></a>
+          <a href="#" aria-label="X"><svg class="ic-svg" width="16" height="16" viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#listings">Explore services</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#" data-list-business>List your business</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul>
+          <li><a href="#" data-cat-link="barbers">Barbers</a></li>
+          <li><a href="#" data-cat-link="hair">Hair salons</a></li>
+          <li><a href="#" data-cat-link="nails">Nails</a></li>
+          <li><a href="#" data-cat-link="spa">Spas</a></li>
+          <li><a href="#" data-cat-link="makeup">Makeup</a></li>
+          <li><a href="#" data-cat-link="lashes">Lashes &amp; Brows</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Snip &amp; Style</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Help Centre</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Snip &amp; Style. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modalBox">
+    <!-- content injected by JS -->
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- DATA ---------------- */
+  const businesses = [
+    {id:1, name:"Kings Barber Shop", cat:"barbers", catLabel:"Barber", city:"Johannesburg CBD", service:"Haircut & Beard Trim", price:150, rating:4.9, reviews:45, badge:"Top rated",
+      img:"https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80&auto=format&fit=crop"},
+    {id:2, name:"Fresh Fades", cat:"barbers", catLabel:"Barber", city:"Soweto", service:"Fade & Shape Up", price:120, rating:4.8, reviews:32, badge:"Available today",
+      img:"https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=500&q=80&auto=format&fit=crop"},
+    {id:3, name:"Glamour Hair Salon", cat:"hair", catLabel:"Hair & Salon", city:"Sandton", service:"Full Cut & Blow-dry", price:350, rating:4.7, reviews:28, badge:"",
+      img:"https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&q=80&auto=format&fit=crop"},
+    {id:4, name:"Braids & Beauty", cat:"hair", catLabel:"Hair & Salon", city:"Pretoria", service:"Box Braids Installation", price:450, rating:4.9, reviews:18, badge:"Top rated",
+      img:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&q=80&auto=format&fit=crop"},
+    {id:5, name:"Perfect Nail Bar", cat:"nails", catLabel:"Nails", city:"Cape Town", service:"Gel Manicure", price:250, rating:4.6, reviews:22, badge:"",
+      img:"https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500&q=80&auto=format&fit=crop"},
+    {id:6, name:"Nail Art Studio", cat:"nails", catLabel:"Nails", city:"Durban", service:"Full Set Acrylics", price:380, rating:4.8, reviews:15, badge:"New",
+      img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80&auto=format&fit=crop"},
+    {id:7, name:"Tranquil Spa", cat:"spa", catLabel:"Spa", city:"Sandton", service:"Full Body Massage", price:550, rating:4.9, reviews:35, badge:"Top rated",
+      img:"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&q=80&auto=format&fit=crop"},
+    {id:8, name:"Natural Wellness Spa", cat:"spa", catLabel:"Spa", city:"Cape Town", service:"Hot Stone Massage", price:650, rating:4.7, reviews:25, badge:"",
+      img:"https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=500&q=80&auto=format&fit=crop"},
+    {id:9, name:"Glam By Lindi", cat:"makeup", catLabel:"Makeup", city:"Johannesburg", service:"Bridal Makeup", price:800, rating:4.9, reviews:12, badge:"Top rated",
+      img:"https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&q=80&auto=format&fit=crop"},
+    {id:10, name:"Flawless Faces", cat:"makeup", catLabel:"Makeup", city:"Durban", service:"Everyday Makeup", price:350, rating:4.6, reviews:10, badge:"Available today",
+      img:"https://images.unsplash.com/photo-1512207736890-6ffed4b9c1f9?w=500&q=80&auto=format&fit=crop"}
+  ];
+
+  const catNames = {
+    barbers:"Barbers", hair:"Hair & Salons", nails:"Nails",
+    spa:"Spa & Massage", makeup:"Makeup", lashes:"Lashes & Brows"
+  };
+
+  let state = { cat:"all", city:"" };
+
+  /* ---------------- RENDER LISTINGS ---------------- */
+  const grid = document.getElementById('listingGrid');
+  const meta = document.getElementById('resultMeta');
+
+  function starRow(rating){
+    return `<span class="stars">★ ${rating.toFixed(1)}</span>`;
+  }
+
+  function render(){
+    let list = businesses.filter(b => state.cat === 'all' || b.cat === state.cat);
+    if(state.city){
+      list = list.filter(b => b.city.toLowerCase().includes(state.city.toLowerCase()));
+    }
+
+    if(list.length === 0){
+      grid.innerHTML = `
+        <div class="empty-state">
+          <h3>No listings match yet</h3>
+          <p>We couldn't find a business for that search. Try another category or city — new professionals are joining Snip &amp; Style every week.</p>
+        </div>`;
+    } else {
+      grid.innerHTML = list.map(b => `
+        <article class="listing-card">
+          <div class="listing-media">
+            <img src="${b.img}" alt="${b.name} — ${b.service}" loading="lazy"
+              onerror="this.onerror=null;this.src='https://picsum.photos/seed/biz-${b.id}/500/400';">
+            ${b.badge ? `<span class="listing-badge${b.badge==='Available today' ? ' today' : ''}">${b.badge}</span>` : ''}
+          </div>
+          <div class="listing-body">
+            <span class="listing-cat">${b.catLabel}</span>
+            <h3 class="listing-name">${b.name}</h3>
+            <div class="listing-rating">${starRow(b.rating)}<span>· ${b.reviews} reviews</span></div>
+            <div class="listing-loc">
+              <svg class="ic-svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12A7 7 0 105 10c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              ${b.city}
+            </div>
+            <div class="listing-service">${b.service}</div>
+            <div class="listing-footer">
+              <div class="listing-price">From <strong>R${b.price}</strong></div>
+              <button class="btn btn-primary btn-sm" data-book="${b.id}">View availability</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    const catLabel = state.cat === 'all' ? 'all categories' : catNames[state.cat];
+    const cityLabel = state.city ? ` in <strong>${state.city}</strong>` : '';
+    meta.innerHTML = `Showing <strong>${list.length}</strong> result${list.length===1?'':'s'} across ${catLabel}${cityLabel}.`;
+  }
+
+  render();
+
+  /* ---------------- CATEGORY FILTER CHIPS ---------------- */
+  const chips = document.querySelectorAll('#filterChips .chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state.cat = chip.dataset.cat;
+      render();
+    });
+  });
+
+  function setCategoryFilter(cat){
+    state.cat = cat;
+    chips.forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+    render();
+    document.getElementById('listings').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  /* ---------------- CATEGORY CARDS (hero browse section) ---------------- */
+  document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', () => setCategoryFilter(card.dataset.cat));
+  });
+
+  /* ---------------- FOOTER CATEGORY LINKS ---------------- */
+  document.querySelectorAll('[data-cat-link]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      setCategoryFilter(link.dataset.catLink);
+    });
+  });
+
+  /* ---------------- CITY CARDS ---------------- */
+  document.querySelectorAll('.city-card').forEach(card => {
+    card.addEventListener('click', () => {
+      state.city = card.dataset.city;
+      document.getElementById('locInput').value = card.dataset.city;
+      render();
+      document.getElementById('listings').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  /* ---------------- HERO SEARCH ---------------- */
+  document.getElementById('searchBtn').addEventListener('click', () => {
+    const loc = document.getElementById('locInput').value.trim();
+    const svc = document.getElementById('svcInput').value;
+    state.city = loc;
+    state.cat = svc || 'all';
+    chips.forEach(c => c.classList.toggle('active', c.dataset.cat === state.cat));
+    render();
+    document.getElementById('listings').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  /* ---------------- STICKY NAV SHADOW ---------------- */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 12);
+  }, {passive:true});
+
+  /* ---------------- MOBILE NAV TOGGLE ---------------- */
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.style.display === 'flex';
+    if(isOpen){
+      navLinks.style.display = 'none';
+      navToggle.setAttribute('aria-expanded','false');
+    } else {
+      navLinks.style.cssText = 'display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;padding:18px 24px;border-bottom:1px solid var(--border);gap:16px;box-shadow:var(--shadow-md);';
+      navToggle.setAttribute('aria-expanded','true');
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if(window.innerWidth <= 960){ navLinks.style.display = 'none'; navToggle.setAttribute('aria-expanded','false'); }
+  }));
+
+  /* ---------------- BOOKING MODAL ---------------- */
+  const overlay = document.getElementById('modalOverlay');
+  const modalBox = document.getElementById('modalBox');
+  let lastFocused = null;
+
+  function timeSlotsFor(){
+    return ["09:00","10:30","12:00","13:30","15:00","16:30"];
+  }
+  function nextDates(){
+    const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const out = [];
+    const today = new Date();
+    for(let i=0;i<5;i++){
+      const d = new Date(today);
+      d.setDate(today.getDate()+i);
+      out.push({label: i===0 ? "Today" : d.getDate()+ (i===1 ? " Tmrw":""), day: days[d.getDay()], full:d});
+    }
+    return out;
+  }
+
+  function openBookingModal(biz){
+    lastFocused = document.activeElement;
+    const dates = nextDates();
+    let selectedDateIdx = 0;
+    let selectedSlot = null;
+    let custName = '';
+    let custContact = '';
+    let showErrors = false;
+
+    function isReady(){
+      return !!selectedSlot && custName.trim().length > 1 && custContact.trim().length > 4;
+    }
+
+    function draw(){
+      const ready = isReady();
+      modalBox.innerHTML = `
+        <div class="modal-header">
+          <div>
+            <h3 id="modalTitle">${biz.name}</h3>
+            <div class="sub">${biz.service}</div>
+          </div>
+          <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-price">
+            <span class="l">Price</span>
+            <span class="v">From R${biz.price}</span>
+          </div>
+          <span class="modal-section-label">Choose a date</span>
+          <div class="modal-dates" id="dateRow">
+            ${dates.map((d,i) => `<button class="date-pill${i===selectedDateIdx?' active':''}" data-i="${i}" type="button">${d.label}<span class="d">${d.day}</span></button>`).join('')}
+          </div>
+          <span class="modal-section-label">Choose a time</span>
+          <div class="modal-slots" id="slotRow">
+            ${timeSlotsFor().map(t => `<button class="slot-pill${selectedSlot===t?' active':''}" data-t="${t}" type="button">${t}</button>`).join('')}
+          </div>
+          <span class="modal-section-label">Your details</span>
+          <div class="form-field${showErrors && custName.trim().length<=1 ? ' invalid':''}">
+            <label for="custName">Full name <span class="req">*</span></label>
+            <input id="custName" type="text" placeholder="e.g. Naledi Dube" value="${custName.replace(/"/g,'&quot;')}">
+            <div class="field-error">Enter your name so the business knows who's booking.</div>
+          </div>
+          <div class="form-field${showErrors && custContact.trim().length<=4 ? ' invalid':''}">
+            <label for="custContact">Phone or email <span class="req">*</span></label>
+            <input id="custContact" type="text" placeholder="082 123 4567 or you@email.com" value="${custContact.replace(/"/g,'&quot;')}">
+            <div class="field-error">We need a way to reach you to confirm the slot.</div>
+          </div>
+          <button class="btn btn-primary btn-block" id="continueBtn" type="button">Confirm booking</button>
+        </div>
+      `;
+
+      modalBox.querySelectorAll('.date-pill').forEach(p => p.addEventListener('click', () => {
+        selectedDateIdx = parseInt(p.dataset.i,10); draw();
+      }));
+      modalBox.querySelectorAll('.slot-pill').forEach(p => p.addEventListener('click', () => {
+        selectedSlot = p.dataset.t; draw();
+      }));
+
+      const nameInput = document.getElementById('custName');
+      const contactInput = document.getElementById('custContact');
+      nameInput.addEventListener('input', e => { custName = e.target.value; });
+      contactInput.addEventListener('input', e => { custContact = e.target.value; });
+      // keep focus + caret position stable across re-renders triggered by typing
+      nameInput.addEventListener('blur', () => {});
+
+      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      document.getElementById('continueBtn').addEventListener('click', () => {
+        if(!isReady()){
+          showErrors = true;
+          draw();
+          if(!selectedSlot){
+            document.getElementById('slotRow').scrollIntoView({behavior:'smooth', block:'nearest'});
+          }
+          return;
+        }
+        showSuccess(biz, dates[selectedDateIdx], selectedSlot, custName.trim(), custContact.trim());
+      });
+    }
+
+    draw();
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showSuccess(biz, date, slot, name, contact){
+    modalBox.innerHTML = `
+      <div class="modal-header">
+        <div><h3 id="modalTitle">You're booked in</h3></div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="success-state">
+          <div class="success-icon">✓</div>
+          <h3>Appointment confirmed</h3>
+          <p>${biz.name} will reach out to ${name.split(' ')[0]} at ${contact} to confirm this slot.</p>
+          <div class="booking-summary">
+            <div class="row"><span>Name</span><span>${name}</span></div>
+            <div class="row"><span>Service</span><span>${biz.service}</span></div>
+            <div class="row"><span>Date</span><span>${date.label} (${date.day})</span></div>
+            <div class="row"><span>Time</span><span>${slot}</span></div>
+            <div class="row"><span>Price</span><span>From R${biz.price}</span></div>
+          </div>
+          <button class="btn btn-primary btn-block" id="doneBtn">Done</button>
+        </div>
+      </div>
+    `;
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    document.getElementById('doneBtn').addEventListener('click', closeModal);
+  }
+
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocused) lastFocused.focus();
+  }
+
+  /* ---------------- LIST YOUR BUSINESS MODAL ---------------- */
+  function openListingModal(){
+    lastFocused = document.activeElement;
+    let data = { name:'', cat:'', city:'', contact:'', price:'', desc:'' };
+    let showErrors = false;
+
+    function isReady(){
+      return data.name.trim().length > 1 && data.cat && data.city && data.contact.trim().length > 4;
+    }
+
+    function draw(){
+      modalBox.innerHTML = `
+        <div class="modal-header">
+          <div>
+            <h3 id="modalTitle">List your business</h3>
+            <div class="sub">Takes about 2 minutes — we'll review and follow up</div>
+          </div>
+          <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-field${showErrors && data.name.trim().length<=1 ? ' invalid':''}">
+            <label for="bizName">Business name <span class="req">*</span></label>
+            <input id="bizName" type="text" placeholder="e.g. Kings Barber Shop" value="${data.name.replace(/"/g,'&quot;')}">
+            <div class="field-error">Enter your business name.</div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-field${showErrors && !data.cat ? ' invalid':''}">
+              <label for="bizCat">Category <span class="req">*</span></label>
+              <select id="bizCat">
+                <option value="">Select one</option>
+                <option value="barbers"${data.cat==='barbers'?' selected':''}>Barber</option>
+                <option value="hair"${data.cat==='hair'?' selected':''}>Hair &amp; Salon</option>
+                <option value="nails"${data.cat==='nails'?' selected':''}>Nails</option>
+                <option value="spa"${data.cat==='spa'?' selected':''}>Spa &amp; Massage</option>
+                <option value="makeup"${data.cat==='makeup'?' selected':''}>Makeup</option>
+                <option value="lashes"${data.cat==='lashes'?' selected':''}>Lashes &amp; Brows</option>
+              </select>
+              <div class="field-error">Choose a category.</div>
+            </div>
+            <div class="form-field${showErrors && !data.city ? ' invalid':''}">
+              <label for="bizCity">City <span class="req">*</span></label>
+              <select id="bizCity">
+                <option value="">Select one</option>
+                <option value="Johannesburg"${data.city==='Johannesburg'?' selected':''}>Johannesburg</option>
+                <option value="Sandton"${data.city==='Sandton'?' selected':''}>Sandton</option>
+                <option value="Soweto"${data.city==='Soweto'?' selected':''}>Soweto</option>
+                <option value="Pretoria"${data.city==='Pretoria'?' selected':''}>Pretoria</option>
+                <option value="Cape Town"${data.city==='Cape Town'?' selected':''}>Cape Town</option>
+                <option value="Durban"${data.city==='Durban'?' selected':''}>Durban</option>
+              </select>
+              <div class="field-error">Choose a city.</div>
+            </div>
+          </div>
+          <div class="form-field${showErrors && data.contact.trim().length<=4 ? ' invalid':''}">
+            <label for="bizContact">Phone or email <span class="req">*</span></label>
+            <input id="bizContact" type="text" placeholder="082 123 4567 or you@business.co.za" value="${data.contact.replace(/"/g,'&quot;')}">
+            <div class="field-error">We need a way to reach you about your listing.</div>
+          </div>
+          <div class="form-field">
+            <label for="bizPrice">Starting price (optional)</label>
+            <input id="bizPrice" type="text" placeholder="e.g. R150" value="${data.price.replace(/"/g,'&quot;')}">
+          </div>
+          <div class="form-field">
+            <label for="bizDesc">Tell customers about your business (optional)</label>
+            <textarea id="bizDesc" placeholder="What you offer, what makes you different...">${data.desc}</textarea>
+          </div>
+          <button class="btn btn-primary btn-block" id="submitBizBtn" type="button">Submit for review</button>
+        </div>
+      `;
+
+      const nameInput = document.getElementById('bizName');
+      const catSelect = document.getElementById('bizCat');
+      const citySelect = document.getElementById('bizCity');
+      const contactInput = document.getElementById('bizContact');
+      const priceInput = document.getElementById('bizPrice');
+      const descInput = document.getElementById('bizDesc');
+      nameInput.addEventListener('input', e => data.name = e.target.value);
+      catSelect.addEventListener('change', e => data.cat = e.target.value);
+      citySelect.addEventListener('change', e => data.city = e.target.value);
+      contactInput.addEventListener('input', e => data.contact = e.target.value);
+      priceInput.addEventListener('input', e => data.price = e.target.value);
+      descInput.addEventListener('input', e => data.desc = e.target.value);
+
+      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      document.getElementById('submitBizBtn').addEventListener('click', () => {
+        if(!isReady()){
+          showErrors = true;
+          draw();
+          return;
+        }
+        showListingSuccess(data);
+      });
+    }
+
+    draw();
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showListingSuccess(data){
+    modalBox.innerHTML = `
+      <div class="modal-header">
+        <div><h3 id="modalTitle">Submitted for review</h3></div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="success-state">
+          <div class="success-icon">✓</div>
+          <h3>Thanks, ${data.name}!</h3>
+          <p>We'll review your details and follow up at ${data.contact} within 2 business days to get your profile live on Snip &amp; Style.</p>
+          <div class="booking-summary">
+            <div class="row"><span>Business</span><span>${data.name}</span></div>
+            <div class="row"><span>Category</span><span>${catNames[data.cat] || data.cat}</span></div>
+            <div class="row"><span>City</span><span>${data.city}</span></div>
+          </div>
+          <button class="btn btn-primary btn-block" id="doneBtn">Done</button>
+        </div>
+      </div>
+    `;
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    document.getElementById('doneBtn').addEventListener('click', closeModal);
+  }
+
+  document.querySelectorAll('[data-list-business]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      openListingModal();
+    });
+  });
+
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  document.body.addEventListener('click', e => {
+    const btn = e.target.closest('[data-book]');
+    if(!btn) return;
+    const biz = businesses.find(b => b.id === parseInt(btn.dataset.book,10));
+    if(biz) openBookingModal(biz);
+  });
+
+})();
+</script>
+</body>
+</html>
